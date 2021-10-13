@@ -76,7 +76,7 @@ func main() {
 	}
 	var listNicsServer = []model.PrePaidServerNic{
 		{
-			SubnetId: "0b9bab00-065c-487e-a5b3-360a9eb1dbc1",
+			SubnetId: "4d25dbc4-c04c-41ce-a25a-520d2fb905dd",
 		},
 	}
 	serverbody := &model.PrePaidServer{
