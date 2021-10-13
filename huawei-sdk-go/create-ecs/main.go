@@ -31,12 +31,14 @@ func main() {
 	periodNumExtendparamPrePaidServerExtendParam := int32(1)
 	isAutoRenewExtendparamPrePaidServerExtendParam := model.GetPrePaidServerExtendParamIsAutoRenewEnum().TRUE
 	isAutoPayExtendparamPrePaidServerExtendParam := model.GetPrePaidServerExtendParamIsAutoPayEnum().TRUE
+	enterpriseProjectIdExtendparamPrePaidServerExtendParam := "eb39b1d2-5565-4249-ac69-814b39f67da4"
 	extendparamServer := &model.PrePaidServerExtendParam{
-		ChargingMode: &chargingModeExtendparamPrePaidServerExtendParam,
-		PeriodType:   &periodTypeExtendparamPrePaidServerExtendParam,
-		PeriodNum:    &periodNumExtendparamPrePaidServerExtendParam,
-		IsAutoRenew:  &isAutoRenewExtendparamPrePaidServerExtendParam,
-		IsAutoPay:    &isAutoPayExtendparamPrePaidServerExtendParam,
+		ChargingMode:        &chargingModeExtendparamPrePaidServerExtendParam,
+		PeriodType:          &periodTypeExtendparamPrePaidServerExtendParam,
+		PeriodNum:           &periodNumExtendparamPrePaidServerExtendParam,
+		IsAutoRenew:         &isAutoRenewExtendparamPrePaidServerExtendParam,
+		IsAutoPay:           &isAutoPayExtendparamPrePaidServerExtendParam,
+		EnterpriseProjectId: &enterpriseProjectIdExtendparamPrePaidServerExtendParam,
 	}
 	idSecurityGroupsPrePaidServerSecurityGroup := "76928403-3bec-481c-ac98-a532c08aec91"
 	var listSecurityGroupsServer = []model.PrePaidServerSecurityGroup{
@@ -78,7 +80,7 @@ func main() {
 		},
 	}
 	serverbody := &model.PrePaidServer{
-		ImageRef:       "bc6c27b6-4045-46ec-b434-cda1cace9849",
+		ImageRef:       "4cc8a329-32c3-40bd-9ec8-3ea2043ce4cd",
 		FlavorRef:      "s6.xlarge.4",
 		Name:           "test-aksk",
 		Vpcid:          "7399959d-5b73-4199-9878-48866127e1c8",
