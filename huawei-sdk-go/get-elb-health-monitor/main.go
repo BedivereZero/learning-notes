@@ -26,30 +26,10 @@ func main() {
 			WithCredential(auth).
 			Build())
 
-	request := &model.CreateHealthMonitorRequest{}
-	healthmonitorbody := &model.CreateHealthMonitorOption{
-		// AdminStateUp:   new(bool),
-		Delay: int32(5),
-		// DomainName:     new(string),
-		// ExpectedCodes:  new(string),
-		// HttpMethod:     new(string),
-		MaxRetries: int32(1),
-		MaxRetriesDown: func() *int32 {
-			n := int32(3)
-			return &n
-		}(),
-		// MonitorPort:    new(int32),
-		// Name:           new(string),
-		PoolId: "bf1b723d-9d95-47c2-a775-e949ffc459ba",
-		// ProjectId: new(string),
-		Timeout: int32(3),
-		Type:    "TCP",
-		// UrlPath: new(string),
+	request := &model.ShowHealthMonitorRequest{
+		HealthmonitorId: "9b1fd4a1-166d-4b3d-b336-a98ab34c0949",
 	}
-	request.Body = &model.CreateHealthMonitorRequestBody{
-		Healthmonitor: healthmonitorbody,
-	}
-	response, err := client.CreateHealthMonitor(request)
+	response, err := client.ShowHealthMonitor(request)
 	if err != nil {
 		log.Fatal(err)
 	}
