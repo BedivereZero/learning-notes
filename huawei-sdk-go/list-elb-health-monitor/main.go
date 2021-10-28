@@ -6,9 +6,9 @@ import (
 	"os"
 
 	"github.com/huaweicloud/huaweicloud-sdk-go-v3/core/auth/basic"
-	elb "github.com/huaweicloud/huaweicloud-sdk-go-v3/services/elb/v2"
-	"github.com/huaweicloud/huaweicloud-sdk-go-v3/services/elb/v2/model"
-	region "github.com/huaweicloud/huaweicloud-sdk-go-v3/services/elb/v2/region"
+	elb "github.com/huaweicloud/huaweicloud-sdk-go-v3/services/elb/v3"
+	"github.com/huaweicloud/huaweicloud-sdk-go-v3/services/elb/v3/model"
+	region "github.com/huaweicloud/huaweicloud-sdk-go-v3/services/elb/v3/region"
 )
 
 func main() {
@@ -26,10 +26,7 @@ func main() {
 			WithCredential(auth).
 			Build())
 
-	request := &model.ListHealthmonitorsRequest{}
-	nameRequest := "asdf"
-	request.Name = &nameRequest
-	response, err := client.ListHealthmonitors(request)
+	response, err := client.ListHealthMonitors(new(model.ListHealthMonitorsRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
