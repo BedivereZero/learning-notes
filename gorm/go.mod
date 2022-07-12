@@ -1,4 +1,4 @@
-module github.com/BedivereZero/study-orm
+module github.com/BedivereZero/learning-notes/gorm
 
 go 1.16
 
