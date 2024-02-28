@@ -8,6 +8,8 @@ use (
 	./golang-logr
 	./golang-req
 	./golang-sync-once
+	./golang/json/patch
+	./golang/markdown
 	./gorm
 	./huawei-sdk-go
 	./jump-server

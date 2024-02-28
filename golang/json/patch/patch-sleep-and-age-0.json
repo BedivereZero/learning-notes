@@ -1,0 +1,12 @@
+[
+    {
+        "op": "add",
+        "path": "/sleep",
+        "value": true
+    },
+    {
+        "op": "replace",
+        "path": "/age",
+        "value": 0
+    }
+]
