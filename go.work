@@ -2,14 +2,8 @@ go 1.21.5
 
 use (
 	./file-server
-	./golang-err-group
 	./golang-gin
-	./golang-http-util
-	./golang-logr
-	./golang-req
-	./golang-sync-once
 	./golang/json/patch
-	./golang/markdown
 	./gorm
 	./huawei-sdk-go
 	./jump-server
