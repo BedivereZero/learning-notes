@@ -3,6 +3,7 @@ go 1.21.5
 use (
 	./file-server
 	./golang-gin
+	./golang/gin
 	./golang/json/patch
 	./gorm
 	./huawei-sdk-go
