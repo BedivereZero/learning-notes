@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"runtime"
 
 	"github.com/gin-gonic/gin"
 )
@@ -59,12 +60,47 @@ func registerAPI(r gin.IRouter) gin.IRouter {
 }
 
 func main() {
-	r := gin.Default()
+	r := gin.New()
+	r.Use(
+		gin.Logger(),
+		gin.CustomRecovery(RecoveryToResponse()),
+	)
 
-	a := r.Group("a", NewLogMiddleware("a", 0))
-	b := a.Group("b", NewLogMiddleware("b", 1))
-	c := b.Group("c", NewLogMiddleware("c", 2))
-	c.Any("echo", Echo)
+	r.POST("/panic-if-zero", PanicIfZero)
 
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+}
+
+// 尝试向 response 写入 recovery 信息
+func RecoveryToResponse() gin.RecoveryFunc {
+	return func(c *gin.Context, err any) {
+		var buf = make([]byte, 1024)
+		runtime.Stack(buf, false)
+
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"err":   err,
+			"stack": buf,
+		})
+	}
+}
+
+// PanicIfZero 当接收到 0 时 panic
+func PanicIfZero(c *gin.Context) {
+	var req = struct {
+		Value  int       `json:"value,omitempty"`
+		Reader io.Reader `json:"reader,omitempty"`
+	}{}
+
+	if err := c.ShouldBindBodyWithJSON(&req); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"err": err})
+		return
+	}
+
+	io.ReadAll(req.Reader)
+
+	if req.Value == 0 {
+		panic("req.value == 0")
+	}
+
+	c.JSON(http.StatusOK, &req)
 }
