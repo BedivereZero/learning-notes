@@ -4,6 +4,7 @@ use (
 	./file-server
 	./golang-gin
 	./golang/ginkgo
+	./golang/gorm
 	./golang/json/patch
 	./gorm
 	./huawei-sdk-go
