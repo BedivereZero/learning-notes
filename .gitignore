@@ -154,3 +154,6 @@ dmypy.json
 
 # MacOS
 .DS_store
+
+# Go Work
+go.work
