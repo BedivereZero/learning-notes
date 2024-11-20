@@ -6,7 +6,7 @@ type GreeterHello struct {
 
 var _ Greeter = &GreeterHello{}
 
-func NewGreeterHello(m Message) Greeter {
+func NewGreeterHello(m Message) *GreeterHello {
 	return &GreeterHello{
 		Message: m,
 	}
