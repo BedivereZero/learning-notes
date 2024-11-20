@@ -14,7 +14,9 @@ import (
 
 func InitializeEvent(phrase string) (Event, error) {
 	message := NewMessage(phrase)
-	greeterHello := NewGreeterHello(message)
+	greeterHello := &GreeterHello{
+		Message: message,
+	}
 	event, err := NewEvent(greeterHello)
 	if err != nil {
 		return Event{}, err
@@ -25,6 +27,5 @@ func InitializeEvent(phrase string) (Event, error) {
 // wire.go:
 
 var set = wire.NewSet(
-	NewEvent, wire.Bind(new(Greeter), new(*GreeterHello)), NewGreeterHello,
-	NewMessage,
+	NewEvent, wire.Bind(new(Greeter), new(*GreeterHello)), wire.Struct(new(GreeterHello), "Message"), NewMessage,
 )

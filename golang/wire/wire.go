@@ -8,7 +8,7 @@ import "github.com/google/wire"
 var set = wire.NewSet(
 	NewEvent,
 	wire.Bind(new(Greeter), new(*GreeterHello)),
-	NewGreeterHello,
+	wire.Struct(new(GreeterHello), "Message"),
 	NewMessage,
 )
 

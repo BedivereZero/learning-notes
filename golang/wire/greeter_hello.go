@@ -6,12 +6,6 @@ type GreeterHello struct {
 
 var _ Greeter = &GreeterHello{}
 
-func NewGreeterHello(m Message) *GreeterHello {
-	return &GreeterHello{
-		Message: m,
-	}
-}
-
 // Greet implements Greeter.
 func (g *GreeterHello) Greet() Message {
 	return g.Message
