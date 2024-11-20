@@ -5,7 +5,13 @@ package main
 
 import "github.com/google/wire"
 
+var set = wire.NewSet(
+	NewEvent,
+	NewGreeterHello,
+	NewMessage,
+)
+
 func InitializeEvent(phrase string) (Event, error) {
-	wire.Build(NewEvent, NewGreeter, NewMessage)
+	wire.Build(set)
 	return Event{}, nil
 }
