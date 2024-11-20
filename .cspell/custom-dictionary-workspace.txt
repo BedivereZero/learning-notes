@@ -1,0 +1,2 @@
+# Custom Dictionary Words
+wireinject # Wire: Automated initialization in Go
