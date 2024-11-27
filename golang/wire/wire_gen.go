@@ -24,6 +24,17 @@ func InitializeEvent(phrase string) (Event, error) {
 	return event, nil
 }
 
+func InitializePrinter(filename string) (*Printer, func(), error) {
+	file, cleanup, err := provideFile(filename)
+	if err != nil {
+		return nil, nil, err
+	}
+	printer := NewPrinter(file)
+	return printer, func() {
+		cleanup()
+	}, nil
+}
+
 // wire.go:
 
 var set = wire.NewSet(

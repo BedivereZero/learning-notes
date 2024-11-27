@@ -16,3 +16,8 @@ func InitializeEvent(phrase string) (Event, error) {
 	wire.Build(set)
 	return Event{}, nil
 }
+
+func InitializePrinter(filename string) (*Printer, func(), error) {
+	wire.Build(NewPrinter, provideFile)
+	return nil, nil, nil
+}

@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"os"
 )
 
 type Message string
@@ -33,10 +34,20 @@ func (e Event) Start() {
 	fmt.Println(msg)
 }
 
-func main() {
+func demo() {
 	e, err := InitializeEvent("Hello, world!")
 	if err != nil {
 		log.Fatalf("create event fail: %v", err)
 	}
 	e.Start()
+}
+
+func main() {
+	p, cleanup, err := InitializePrinter("README.md")
+	if err != nil {
+		log.Fatalf("create printer fail: %v", err)
+	}
+	defer cleanup()
+
+	p.FPrint(os.Stdout)
 }
