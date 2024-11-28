@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"crypto/tls"
 	"fmt"
 	"io"
 	"log"
@@ -52,7 +53,7 @@ func NewSendCommand(w io.Writer) *cobra.Command {
 				go func(t int) {
 					defer g.Done()
 					for i := range ch {
-						client := &http.Client{}
+						client := &http.Client{Transport: &http.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: o.InsecureSkipTLSVerify}}}
 						if err := send(client, o); err != nil {
 							errs = append(errs, fmt.Errorf("%3d %3d send http request fail: %w", t, i, err))
 						}
@@ -97,7 +98,9 @@ type SendOptions struct {
 	URL    string
 	Body   FileValue
 
-	BearerToken string
+	Token string
+
+	InsecureSkipTLSVerify bool
 
 	Threads int
 	Times   int
@@ -149,7 +152,8 @@ func (o *SendOptions) AddFlag(fs *pflag.FlagSet) {
 	httpFlagSet.StringVar(&o.Method, "method", o.Method, "http method")
 	httpFlagSet.StringVar(&o.URL, "url", o.URL, "http url")
 	httpFlagSet.Var(&o.Body, "body", "load http body from this file, if specified")
-	httpFlagSet.StringVar(&o.BearerToken, "bearer-token", o.BearerToken, "bearer authentication token")
+	httpFlagSet.StringVar(&o.Token, "token", o.Token, "Bearer token for authentication to the API server")
+	httpFlagSet.BoolVar(&o.InsecureSkipTLSVerify, "insecure-skip-tls-verify", o.InsecureSkipTLSVerify, "If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure.")
 	fs.AddFlagSet(httpFlagSet)
 
 	fs.IntVar(&o.Times, "times", o.Times, "number of times to send http request")
@@ -179,8 +183,8 @@ func send(client *http.Client, o *SendOptions) error {
 	}
 	defer resp.Body.Close()
 
-	if o.BearerToken != "" {
-		resp.Header.Add("Authorization", "Bearer "+o.BearerToken)
+	if o.Token != "" {
+		resp.Header.Add("Authorization", "Bearer "+o.Token)
 	}
 
 	if resp.StatusCode != http.StatusOK {
