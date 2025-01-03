@@ -1,6 +1,16 @@
 go 1.23.3
 
 use (
+	./file-server
+	./golang-gin
+	./golang/ginkgo
+	./golang/gorm
 	./golang/http/wasm
+	./golang/json/patch
 	./golang/wire
+	./gorm
+	./huawei-sdk-go
+	./jump-server
+	./klog
+	./timezone
 )
